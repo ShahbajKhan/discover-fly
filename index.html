@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="all.min.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main id="mainContainer" class="main-content container">
+        <div class="booking-form">
+            <div id="memo-message">
+                <h1 class="congo"><i class="fas fa-check-circle"></i>Congratulations!</h1>
+                <h3 style="text-align: center;">Cash Memo.</h3>
+                <hr>
+            </div>
+            <h3>Booking Flights</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input id="flyingFrom" class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input id="flyingTo" class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                        <input id="departureDate" class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input id="returnDate" class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="firstClassTicketCount" class="inp-style inp-width" type="number" name="" value="0">
+                </div>
+                <div id="buttonFirst" class="plus-minus-btn">
+                    <p>
+                        <span id="firstClass-Increase" class="btn">+</span>
+                        <span id="firstClass-Decrease" class="btn">-</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id="economyTicketCount" class="inp-style inp-width" type="number" name="" value="0">
+                </div>
+                <div id="buttonEconomy" class="plus-minus-btn">
+                    <p>
+                        <span id="economyClass-Increase" class="btn">+</span>
+                        <span id="economyClass-Decrease" class="btn">-</span>
+                    </p>
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="subTotal">$500</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax">$50</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="total">$550</p>
+                    </div>
+                </div>
+            </div>
+            <button id="bookBtn" onclick="cashMemo()" class="btn-style">Book Now</button>
+        </div>
+
+        <div class="booking-content">
+            <h1>discover <br> around the world</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias
+                veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise
+                voluptatibus quam</p>
+        </div>
+    </main>
+
+    <script>
+        // Setting SubTotal,tax and Total to zero.
+        priceCalculator();
+        document.getElementById("memo-message").style.display = "none";
+
+        // First Class and Economy Class Handler.
+        document.getElementById('firstClass-Increase').addEventListener('click', function () {
+            getInput("firstClassTicketCount", "firstClass-Increase");
+            priceCalculator();
+        });
+        document.getElementById('firstClass-Decrease').addEventListener('click', function () {
+            getInput("firstClassTicketCount", "firstClass-Decrease");
+            priceCalculator();
+        });
+        document.getElementById('economyClass-Increase').addEventListener('click', function () {
+            getInput("economyTicketCount", "economyClass-Increase");
+            priceCalculator();
+        });
+        document.getElementById('economyClass-Decrease').addEventListener('click', function () {
+            getInput("economyTicketCount", "economyClass-Decrease");
+            priceCalculator();
+        });
+
+        // Function for counting the amount of tickets
+        function getInput(id, buttonId) {
+            const currentNumber = document.getElementById(id).value;
+            const amountNumber = parseInt(currentNumber);
+            let totalAmount = 0;
+            if ((buttonId == "firstClass-Decrease" || buttonId == "economyClass-Decrease") && amountNumber > 1) {
+                totalAmount = amountNumber - 1;
+            }
+            if (buttonId == "firstClass-Increase" || buttonId == "economyClass-Increase") {
+                totalAmount = amountNumber + 1;
+            }
+            document.getElementById(id).value = totalAmount;
+        }
+        // Function for calculating subtotal, tax, and total Price
+        function priceCalculator() {
+            const firstClassTicketCount = parseInt(document.getElementById("firstClassTicketCount").value);
+            const economyTicketCount = parseInt(document.getElementById("economyTicketCount").value);
+            // Calculation of Price
+            const subTotal = (150 * firstClassTicketCount) + (100 * economyTicketCount);
+            const tax = parseFloat((subTotal * 0.1).toFixed(2));
+            const total = subTotal + tax;
+            // changing the innerText of subtotal,tax and total.
+            document.getElementById("subTotal").innerText = ("$" + subTotal);
+            document.getElementById("tax").innerText = ("$" + tax);
+            document.getElementById("total").innerText = ("$" + total);
+
+        }
+        // This Function displays the Cash Memo. It disables all the input Field.
+        function cashMemo() {
+            document.getElementById("flyingFrom").disabled = true;
+            document.getElementById("flyingTo").disabled = true;
+            document.getElementById("departureDate").disabled = true;
+            document.getElementById("returnDate").disabled = true;
+            document.getElementById("firstClassTicketCount").disabled = true;
+            document.getElementById("economyTicketCount").disabled = true;
+            document.getElementById("bookBtn").style.display = "none";
+            document.getElementById("buttonFirst").style.display = "none";
+            document.getElementById("buttonEconomy").style.display = "none";
+            document.getElementById("memo-message").style.display = "block";
+        }
+
+    </script>
+    <script src="all.min.js"></script>
+
+    <!--Thank You-->
+</body>
+
+</html>
