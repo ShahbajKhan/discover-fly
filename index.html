@@ -30,25 +30,23 @@
 
     <!--Booking Section-->
     <main id="mainContainer" class="main-content container">
-        <div class="booking-form">
-            <div id="memo-message">
-                <h1 class="congo"><i class="fas fa-check-circle"></i>Congratulations!</h1>
-                <h3 style="text-align: center;">Cash Memo.</h3>
-                <hr>
-            </div>
+        <div id="form" class="booking-form">
             <h3>Booking Flights</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
                 <input id="flyingFrom" class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+                
             </div>
             <div class="input-group">
                 <label for="">Flying To</label>
                 <input id="flyingTo" class="inp-style" type="text" name="" placeholder="New York, United States">
+                
             </div>
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                        <input id="departureDate" class="inp-style" type="date" name="">
+                    <input id="departureDate" class="inp-style" type="date" name="">
+                    
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
@@ -110,6 +108,78 @@
             </div>
             <button id="bookBtn" onclick="cashMemo()" class="btn-style">Book Now</button>
         </div>
+        
+        <!-- Memo Section -->
+        <div class="booking-form memo">
+            <div id="memo-message">
+                <h1 class="congo"><i class="fas fa-check-circle"></i>Congratulations!</h1>
+                <h3 style="text-align: center;">Cash Memo.</h3>
+                <hr>
+            </div>
+            <h3>Booking Flights</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <p id="flyingFromMemo" class="memoStyle"></p>
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <p id="flyingToMemo" class="memoStyle"></p>
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <p id="departureDateMemo" class="memoStyle"></p>
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <p id="returnDateMemo" class="memoStyle"></p>
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <p id="firstClassAmountMemo" class="memoStyle"></p>
+                </div>
+                
+            </div>
+
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <p id="economyClassAmountMemo" class="memoStyle"></p>
+                </div>
+                
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="subTotalMemo"></p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="taxMemo"></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="totalMemo"></p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
 
         <div class="booking-content">
             <h1>discover <br> around the world</h1>
@@ -122,9 +192,8 @@
     <script>
         // Setting SubTotal,tax and Total to zero.
         priceCalculator();
-        document.getElementById("memo-message").style.display = "none";
-
         // First Class and Economy Class Handler.
+        
         document.getElementById('firstClass-Increase').addEventListener('click', function () {
             getInput("firstClassTicketCount", "firstClass-Increase");
             priceCalculator();
@@ -169,18 +238,21 @@
             document.getElementById("total").innerText = ("$" + total);
 
         }
-        // This Function displays the Cash Memo. It disables all the input Field.
+        // This Function displays the Cash Memo. It calls all the input value by ID and then displays them. It also hides the input form.
         function cashMemo() {
-            document.getElementById("flyingFrom").disabled = true;
-            document.getElementById("flyingTo").disabled = true;
-            document.getElementById("departureDate").disabled = true;
-            document.getElementById("returnDate").disabled = true;
-            document.getElementById("firstClassTicketCount").disabled = true;
-            document.getElementById("economyTicketCount").disabled = true;
-            document.getElementById("bookBtn").style.display = "none";
-            document.getElementById("buttonFirst").style.display = "none";
-            document.getElementById("buttonEconomy").style.display = "none";
-            document.getElementById("memo-message").style.display = "block";
+            document.getElementById("form").style.display = "none";
+            document.getElementById("flyingFromMemo").innerText =  document.getElementById("flyingFrom").value;
+            document.getElementById("flyingToMemo").innerText =  document.getElementById("flyingTo").value;
+            document.getElementById("departureDateMemo").innerText =  document.getElementById("departureDate").value;
+            document.getElementById("returnDateMemo").innerText =  document.getElementById("returnDate").value;
+            document.getElementById("firstClassAmountMemo").innerText =  document.getElementById("firstClassTicketCount").value;
+            document.getElementById("economyClassAmountMemo").innerText =  document.getElementById("economyTicketCount").value;
+            document.getElementById("subTotalMemo").innerText =  document.getElementById("subTotal").innerText;
+            document.getElementById("taxMemo").innerText =  document.getElementById("tax").innerText;
+            document.getElementById("totalMemo").innerText =  document.getElementById("total").innerText;
+            document.getElementsByClassName("memo")[0].style.display = "block";
+            
+            
         }
 
     </script>

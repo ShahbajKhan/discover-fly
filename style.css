@@ -9,11 +9,21 @@ body{
     font-family: 'Roboto', sans-serif;
     background:url("images/bg.png");
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: cover;
     background-attachment: scroll;
     background-size: cover;
 }
-
+.memo{
+    display: none;
+}
+.memoStyle{
+    background-color: #F3F5FF;
+    width: 100%;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+    font-style: italic;
+}
 .congo{
     text-align: center;
     color: red;
